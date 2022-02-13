@@ -1,4 +1,4 @@
-function stats = regPlane2Stack (vol, plane, regType, doPlot)
+function stats = regIm2Stack (vol, plane, regType, doPlot)
 
 if nargin <4
     doPlot = false;
@@ -31,9 +31,13 @@ switch regOps.type
         
         stats.volMatch = vol(:,:,stats.bestFrame);
         
-        stats.dv = -stats.dv(stats.bestFrame, :); % imtranslate takes dx dy
+        stats.dv = -stats.dv(stats.bestFrame, :); 
         
         regPlane = rigidRegFrames(regOps.targetFrame,regOps, stats.dv);
+        
+        valid = rigidreg_validPx(size(regPlane), stats.dv);
+        
+        regPlane(~valid) =NaN;
         
     case 'nonrigid'
         
@@ -46,6 +50,8 @@ switch regOps.type
         [~, stats.bestFrame] = max(mean(regOps.CorrFrame,2));
         
         [regPlane, Valid]= nonrigidRegFrames(plane, regOps.xyMask, -dsall(stats.bestFrame,:,:));
+        
+        regPlane(~Valid) = NaN;
         
         stats.dv = -dsall(stats.bestFrame,:,:);
         

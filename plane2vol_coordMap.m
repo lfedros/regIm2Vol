@@ -11,11 +11,16 @@ switch stats.regOps.type
         
         % need to make it return 'Valid' pixels
         regX = rigidRegFrames(X, stats.regOps, -stats.dv);
+        Valid = rigidreg_validPx(size(X), -stats.dv);
+        regX(~Valid) = NaN;
         
         regY = rigidRegFrames(Y, stats.regOps, -stats.dv);
+        Valid = rigidreg_validPx(size(Y), -stats.dv);
+        regY(~Valid) = NaN;
         
         regZ = rigidRegFrames(Z, stats.regOps, -stats.dv);
-        
+        Valid = rigidreg_validPx(size(Z), -stats.dv);
+        regZ(~Valid) = NaN;
         
     case 'nonrigid'
         

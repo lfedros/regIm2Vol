@@ -1,6 +1,9 @@
 
 clear;
-addpath(genpath('C:\Users\Federico\Documents\GitHub\volReg'));
+addpath('C:\Users\Federico\Documents\GitHub\regIm2Vol');
+addpath('C:\Users\Federico\Documents\GitHub\regIm2Vol\rigid');
+addpath('C:\Users\Federico\Documents\GitHub\regIm2Vol\nonrigid');
+
 %% expref of functional imaging planes
 
 plane.subject    = 'FR143';
@@ -49,6 +52,6 @@ q.x_theta =[-3:3]; % angles in degrees
 q.y_theta =[0]; % angles in degrees
 q.z_theta =[0]; % angles in degrees
 q.regType = 'nonrigid';
-[regStats, q_vol] = regPlane2Vol_dev(ref_vol, target_plane, q);
+[regStats, q_vol] = regIm2Vol_dev(ref_vol, target_plane, q);
 
 

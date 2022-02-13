@@ -1,4 +1,4 @@
-function [regStats, q] = regPlane2Vol_dev(vol, plane, q)
+function [regStats, q] = regIm2Vol_dev(vol, plane, q)
 
 %% initialise registration options
 if nargin <3
@@ -35,7 +35,7 @@ if numel(q.x_theta)*numel(q.y_theta)*numel(q.z_theta) >1
     
     % interpolate plane to zstack res
     
-    [q0.stats] = regPlane2Stack(q0.stack{1}, target_plane.img, q.regType, 0); % nonrigid takes ~3 times longer
+    [q0.stats] = regIm2Stack(q0.stack{1}, target_plane.img, q.regType, 0); % nonrigid takes ~3 times longer
     
     bestGuess = q0.stats.bestFrame;
     
@@ -60,7 +60,7 @@ for iRot = 1:nRots
     this_q.z_theta = q.z_theta_grid(iRot);  
     this_q = resampleCoords(vol, this_q);
     this_q.stacks = resampleVol_dev(vol, this_q);   
-    [stats(iRot)] = regPlane2Stack(this_q.stacks{1}, target_plane.img, q.regType);
+    [stats(iRot)] = regIm2Stack(this_q.stacks{1}, target_plane.img, q.regType);
     % add line to retain the best stack
 end
 toc 
@@ -94,7 +94,7 @@ regStats.best_ang_combo = [best_x, best_y, best_z];
 
 %% plotting
 
-figure; 
+figure('Color', 'w', 'Position',[179 512 560 360]); 
 imagesc(regStats.corr_score); hold on; 
 plot(regStats.best_ang_combo_id, regStats.best_frame,'*r')
 xlabel('xyz rotation combo')
@@ -102,19 +102,23 @@ ylabel('Best match xcorr')
 title(sprintf('Best rotation x:%0.1f, y:%0.1f; z:%0.1f',  best_x, best_y, best_z))
 formatAxes
 
-figure; 
+figure('Color', 'w', 'Position', [742 104 830 322]); 
 subplot(1,3,1)
 imagesc(regStats.regX); axis image
-title('X Plane to Vol coordinate transform');
+formatAxes
+title('X Im2Vol coordinate');
 
 subplot(1,3,2)
 imagesc(regStats.regY); axis image
-title('Y Plane to Vol coordinate transform');
+formatAxes
+title('Y Im2Vol coordinate');
 
 subplot(1,3,3)
 imagesc(regStats.regZ); axis image
-title('Z Plane to Vol coordinate transform');
+formatAxes
+title('Z Im2Vol coordinate');
 
+figure('Color', 'w', 'Position', [742 512 830 360]); 
 plot_volMatch(regStats.volMatch, regStats.regPlane)
 title(sprintf('Best %s match', q.regType));
 
