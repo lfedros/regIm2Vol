@@ -44,9 +44,7 @@ target_plane.micronsZ = plane.micronsZ(:,iPlane);
 ref_vol = volG; 
 
 %% find best match
-% to do: add function that returs coordinate transform between plane and stack: need to apply the inverse (opposite) transformation of dsall
-% to the coordinates of data, which is q0.X(:,:,stats0.bestFrame) and q0.Y,
-% q0.Z
+% to do: add function that applies same transform to red channel
 
 q.x_theta =[-3:3]; % angles in degrees
 q.y_theta =[0]; % angles in degrees
