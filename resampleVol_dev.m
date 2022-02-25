@@ -7,27 +7,33 @@ function q_vol = resampleVol_dev(vol, q)
 % so you can use gridded interpolation which is faster
 
 
-Fg = griddedInterpolant( {vol.micronsY, vol.micronsX, vol.zMicronsPerPlane}, single(vol.stack), 'linear', 'none');
-% Fr = griddedInterpolant( {vol.micronsY, vol.micronsX, vol.zMicronsPerPlane}, single(vol.R), 'linear', 'none');
+switch q.reg_ch
+    case 'G'
+        Fg = griddedInterpolant( {vol.micronsY, vol.micronsX, vol.zMicronsPerPlane}, single(vol.stack_G), 'linear', 'none');
+        
+    case 'R'
+        Fg = griddedInterpolant( {vol.micronsY, vol.micronsX, vol.zMicronsPerPlane}, single(vol.stack_R), 'linear', 'none');
+        % Fr = griddedInterpolant( {vol.micronsY, vol.micronsX, vol.zMicronsPerPlane}, single(vol.R), 'linear', 'none');
+end
 
 if q.gridded
     
     q_vol{1} = Fg({q.y_vec, q.x_vec, q.z_vec});
-%     q_vol.R = Fr({q.y_vec, q.x_vec, q.z_vec});
+    %     q_vol.R = Fr({q.y_vec, q.x_vec, q.z_vec});
     
     
 else
-   
+    
     for iRot = 1:q.n_rot
         
         Yq = q.Y(:,:,:,iRot);
         Xq = q.X(:,:,:,iRot);
         Zq = q.Z(:,:,:,iRot);
-
-    q_vol{iRot} = Fg(Yq(:), Xq(:), Zq(:));
-    q_vol{iRot} = reshape(q_vol{iRot}, q.n_y, q.n_x, q.n_z);
-%     q_vol.R{iRot} = Fr(Yq(:), Xq(:), Zq(:));
-%     q_vol.R{iRot} = reshape(q_vol.R{iRot}, q.n_y, q.n_x, q.n_z);
+        
+        q_vol{iRot} = Fg(Yq(:), Xq(:), Zq(:));
+        q_vol{iRot} = reshape(q_vol{iRot}, q.n_y, q.n_x, q.n_z);
+        %     q_vol.R{iRot} = Fr(Yq(:), Xq(:), Zq(:));
+        %     q_vol.R{iRot} = reshape(q_vol.R{iRot}, q.n_y, q.n_x, q.n_z);
     end
 end
 

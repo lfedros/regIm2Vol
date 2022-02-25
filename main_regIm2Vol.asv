@@ -34,19 +34,23 @@ vol = populatePaths(vol);
 vol = populateImgInfo(vol);
 
 %load
-vol  = loadStack(vol);
+volG  = loadStack(vol, 'G');
+volR  = loadStack(vol, 'R');
 
 %remove flyback and wobbly planes
-vol = trimBadPlanes(vol);
+volG = trimBadPlanes(volG);
+volR = trimBadPlanes(volR);
 
 %% select the desired plane and channel
 
-iPlane = 5;
-target_plane.img_G = plane.mimgG(:,:,iPlane);
-target_plane.img_R = plane.mimgR(:,:,iPlane);
+iPlane = 3;
+target_plane.img = plane.mimgG(:,:,iPlane);
 target_plane.micronsY = plane.micronsY;
 target_plane.micronsX = plane.micronsX;
 target_plane.micronsZ = plane.micronsZ(:,iPlane);
+
+%% select desired stack channel
+ref_vol = volG; 
 
 %% find best match
 % to do: add function that applies same transform to red channel
@@ -56,7 +60,6 @@ q.x_theta =[-3:3]; % angles in degrees
 q.y_theta =[0]; % angles in degrees
 q.z_theta =[0]; % angles in degrees
 q.regType = 'nonrigid';
-q.reg_ch = 'G'; % register the green channel
-[regStats, q_vol] = regIm2Vol_dev(vol, target_plane, q);
+[regStats, q_vol] = regIm2Vol_dev(ref_vol, target_plane, q);
 
 

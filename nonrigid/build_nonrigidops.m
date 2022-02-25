@@ -5,7 +5,7 @@ ops.mimg = volMatch;
 ops.useGPU = true;
 ops.subPixel = 1;
 ops.phaseCorrelation = true;
-ops.maxregshift = 50;
+ops.maxregshift = 30;
 ops.kriging = 1;
 
 [ops.Ly, ops.Lx] = size(ops.mimg);

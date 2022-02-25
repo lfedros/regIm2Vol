@@ -50,8 +50,6 @@ if ~q.gridded
     Y = repmat(q.y_vec', [1, q.n_x, q.n_z]);
     Z= repmat(reshape(q.YZ, q.n_y, 1, q.n_z), [1, q.n_x, 1]);
     
-    
-    
     % rotations
     
     %     q.rot_cx = mean(vol.micronsX);
