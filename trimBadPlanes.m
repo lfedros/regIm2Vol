@@ -1,6 +1,9 @@
 function vol = trimBadPlanes(vol)
-
-%% identify flyback and wobbly planes
+%% identifies and removes flyback and unstable/wobbly planes from a structural zstack
+% INPUTS 
+% vol is a struct containing a registered zstack and associated metadata
+% OUTPUT
+% vol same as input
 
 wobble = range(vol.micronsZ, 1); 
 

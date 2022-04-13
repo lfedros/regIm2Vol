@@ -1,15 +1,15 @@
-function ops = build_nonrigidops(volMatch)
+function ops = build_nonrigidops(target)
 
 ops.type = 'nonrigid';
-ops.mimg = volMatch;
+ops.mimg = target;
 ops.useGPU = true;
 ops.subPixel = 1;
 ops.phaseCorrelation = true;
-ops.maxregshift = 30;
+ops.maxregshift = 50;
 ops.kriging = 1;
 
 [ops.Ly, ops.Lx] = size(ops.mimg);
-ops.numBlocks = [4 4];
+ops.numBlocks = [5 5];
 ops = MakeBlocks(ops);
 ops.kriging = 1;
 for ib = 1:ops.numBlocks(1)*ops.numBlocks(2)

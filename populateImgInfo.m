@@ -1,4 +1,13 @@
 function info = populateImgInfo(info)
+%% populate the metadata of an imaging experiment
+% INPUT:
+% info: db struct with the following fields
+% .subject    = 'FR140'; % animal name
+% .date          = '2019-05-23'; % date of functional experiment
+% .expts = [1 2 3 4 6 7 8];% which experiment were functional imagingplane = getImgInfo(planes);
+% OUTPUTS
+% info: populate the input structure with metadata about imaging experiment
+
 
 try
     try
@@ -110,7 +119,8 @@ try
 
 info.xRange = range(info.micronsX);
 info.yRange = range(info.micronsY);
-info.zRange = range(makeVec(info.zMicronsPerPlane(:,~info.wobblyPlanes)));
+%  info.zRange = range(makeVec(info.zMicronsPerPlane(:,~info.wobblyPlanes)));
+info.zRange = range(makeVec(info.zMicronsPerPlane));
 
 catch
     warning('NO IMAGING DATA FOUND, returning basic exp info')

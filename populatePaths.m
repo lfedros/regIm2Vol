@@ -1,4 +1,13 @@
 function info = populatePaths(info)
+%% populates the paths associated with an imaging experiment
+% INPUT:
+% info: db struct with the following fields
+% .subject    = 'FR140'; % animal name
+% .date          = '2019-05-23'; % date of functional experiment
+% .expts = [1 2 3 4 6 7 8];% which experiment were functional imagingplane = getImgInfo(planes);
+% OUTPUTS
+% info: populate the input structure with paths to data
+
 
 info.expRef  = dat.constructExpRef(info.subject,info.date, info.expts(1));
 

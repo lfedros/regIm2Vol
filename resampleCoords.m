@@ -1,4 +1,11 @@
 function q = resampleCoords(vol, q)
+%% 
+% creates a 3D grid of coordinates for the pixels of a zstack vol, downsamples them to desired resolution,
+% and applies the desired 3D rotation
+
+% INPUTS
+
+% OUTPUTS
 
 
 %% gatehr coordinates of data

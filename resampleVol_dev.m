@@ -1,4 +1,4 @@
-function q_vol = resampleVol_dev(vol, q)
+function [q_vol, Fg] = resampleVol_dev(vol, q)
 
 % inputs need to be: grid vectors for the original stack
 % grid vectors or scattered query coordinates
