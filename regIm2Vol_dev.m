@@ -140,7 +140,7 @@ q.x_theta = best_x;
 q.y_theta = best_y;
 q.z_theta = best_z;
 q = resampleCoords(vol, q);
-[q.stacks, Fg] = resampleVol_dev(vol, q); % you can add Fg to the inputs to make this faster
+[q.stacks, q.Fg] = resampleVol_dev(vol, q); % you can add Fg to the inputs to make this faster
 
 regStats = stats(best_ang_combo);
 regStats.target_plane = target_plane;

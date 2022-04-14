@@ -44,7 +44,7 @@ vol = trimBadPlanes(vol);
 
 %% select the desired plane and channel
 
-iPlane = 5;
+iPlane = 2;
 target_plane.img_G = plane.mimgG(:,:,iPlane);
 target_plane.img_R = plane.mimgR(:,:,iPlane);
 target_plane.micronsY = plane.micronsY;
